@@ -15,4 +15,8 @@ public interface UserService {
     List<User> getAllUserDetails();
 
     ServiceAPIResponse updateUserRoles (String userName, UserRequest userRequest);
+
+    ServiceAPIResponse sendEmailVerification (UserRequest userRequest);
+
+    ServiceAPIResponse confirmEmail(String token);
 }

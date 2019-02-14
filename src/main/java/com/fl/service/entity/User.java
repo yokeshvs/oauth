@@ -16,12 +16,14 @@ public class User {
     private String userName;
     private String email;
     private String password;
+    private boolean status;
 
     public User(String name, String userName, String email, String password) {
         this.name = name;
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.status = false;
     }
 
     public String getUserName() {
@@ -62,5 +64,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

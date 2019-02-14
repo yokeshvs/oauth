@@ -35,6 +35,16 @@ public class AppController {
         return ResponseEntity.created(location).body(new ServiceAPIResponse(true, "User registered successfully"));*/
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/confirmEmail")
+    public ResponseEntity confirmEmail(@RequestParam("token") String token) {
+        return ResponseEntity.ok(userService.confirmEmail(token));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/verificationEmail")
+    public ResponseEntity sendEmailVerification(@Valid @RequestBody UserRequest userRequest) {
+        return ResponseEntity.ok(userService.sendEmailVerification(userRequest));
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authService.loginUser(loginRequest));

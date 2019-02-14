@@ -2,6 +2,7 @@ package com.fl.service.mapper;
 
 import com.fl.service.entity.User;
 import com.fl.service.entity.UserRoles;
+import com.fl.service.entity.UserVerification;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,10 @@ public interface UserMapper {
     List<UserRoles> getUserRolesById(Long id);
 
     void updateUserRoles(UserRoles userRoles);
+
+    void addUserVerification(UserVerification userVerification);
+
+    List<UserVerification> getUserVerification(String verificationId);
+
+    void updateUserStatus(String userName);
 }

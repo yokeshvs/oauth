@@ -8,6 +8,7 @@
         <result column="email" property="email"/>
         <result column="userName" property="userName"/>
         <result column="password" property="password"/>
+        <result column="status" property="status"/>
     </resultMap>
     <resultMap id="UserRolesMap" type="UserRoles">
         <id column="userId" property="userId"/>
@@ -15,8 +16,12 @@
         <result column="basic" property="basic"/>
         <result column="role_editor" property="roleEditor"/>
     </resultMap>
+    <resultMap id="UserVerificationMap" type="UserVerification">
+        <id column="verificationId" property="verificationId"/>
+        <result column="userName" property="userName"/>
+    </resultMap>
     <select id="getUserByUserName" resultMap="UserMap">
-        select userId, name, email, password from user_details WHERE userName=#{userName}
+        select userId, name, email, password, status from user_details WHERE userName=#{userName}
     </select>
     <select id="checkUserNameExists" resultMap="UserMap">
         select * from user_details WHERE userName=#{userName}
@@ -25,18 +30,18 @@
         select * from user_details WHERE email=#{email}
     </select>
     <select id="getUserById" resultMap="UserMap">
-        select userId, name, email, password from user_details WHERE userId=#{id}
+        select userId, name, email, password, status from user_details WHERE userId=#{id}
     </select>
     <select id="getUserRolesById" resultMap="UserRolesMap">
         select userId, admin, basic, role_editor from user_roles WHERE userId=#{id}
     </select>
     <select id="getAllUsers" resultMap="UserMap">
-        select userId, name, email, password from user_details
+        select userId, name, email, password, status from user_details
     </select>
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId" flushCache="true"
             statementType="PREPARED" timeout="20">
-        Insert into user_details(name,email,userName,password)
-        values(#{name},#{email},#{userName},#{password})
+        Insert into user_details(name,email,userName,password, status)
+        values(#{name},#{email},#{userName},#{password}, #{status})
     </insert>
     <insert id="addRoles" parameterType="UserRoles" keyProperty="userId" flushCache="true" statementType="PREPARED"
             timeout="20">
@@ -47,5 +52,19 @@
         Update user_roles
         set admin = #{admin}, basic = #{basic}, role_editor = #{roleEditor}
         where userId = #{userId}
+    </update>
+    <insert id="addUserVerification" parameterType="UserVerification" keyProperty="verificationId" flushCache="true"
+            statementType="PREPARED"
+            timeout="20">
+        Insert into user_verification(verificationId, userName)
+        values(#{verificationId},#{userName})
+    </insert>
+    <select id="getUserVerification" resultMap="UserVerificationMap">
+        select verificationId, userName from user_verification where verificationId = #{verificationId}
+    </select>
+    <update id="updateUserStatus" parameterType="String" flushCache="true" statementType="PREPARED" timeout="20">
+        Update user_details
+        set status = true
+        where userName = #{userName}
     </update>
 </mapper>

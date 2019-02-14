@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js")
                 .permitAll()
-                .antMatchers("/api/oauth/login", "/api/oauth/signup")
+                .antMatchers("/api/oauth/login", "/api/oauth/signup", "/api/oauth/verificationEmail", "/api/oauth/confirmEmail")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
