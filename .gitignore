@@ -1,2 +1,3 @@
 target/*
 target/classes/mappers/UserMapper.xml
+.idea/workspace.xml
